@@ -105,8 +105,18 @@ def hungarian(matrixTF):
 
     return ans, assign
 
+def logger_txt(log_file,epoch,scores):
+    f1m_l, ap_l, ar_l, mae, mse, nae, loss= scores
 
-def vis_results_more(exp_name, epoch, writer, restore, img, pred_map, gt_map, binar_map,threshold_matrix, boxes):  # , flow):
+    snapshot_name = 'ep_%d_mae_%.1f_mse_%.1f' % (epoch + 1, mae, mse)
+
+    with open(log_file, 'a') as f:
+        f.write('='*15 + '+'*15 + '='*15 + '\n\n')
+        f.write(snapshot_name + '\n')
+        f.write('    [mae %.2f mse %.2f nae %.4f], [val loss %.4f]\n' % (mae, mse, nae, loss))
+        f.write('='*15 + '+'*15 + '='*15 + '\n\n')
+
+def vis_results(exp_name, epoch, writer, restore, img, pred_map, gt_map, binar_map,threshold_matrix, boxes):  # , flow):
 
     pil_to_tensor = standard_transforms.ToTensor()
 
@@ -154,20 +164,20 @@ def vis_results_more(exp_name, epoch, writer, restore, img, pred_map, gt_map, bi
     writer.add_image(exp_name + '_epoch_' + str(epoch + 1), x)
 
 
-
-def print_NWPU_summary(exp_name,log_txt,epoch, scores,train_record):
+def print_NWPU_summary(trainer, scores):
     f1m_l, ap_l, ar_l, mae, mse, nae, loss = scores
+    train_record = trainer.train_record
 
-    with open(log_txt, 'a') as f:
+    with open(trainer.log_txt, 'a') as f:
         f.write('='*15 + '+'*15 + '='*15 + '\n')
-        f.write(str(epoch) + '\n\n')
+        f.write(str(trainer.epoch) + '\n\n')
 
         f.write('  [F1 %.4f Pre %.4f Rec %.4f ] [mae %.4f mse %.4f nae %.4f], [val loss %.4f]\n\n' % (f1m_l, ap_l, ar_l,mae, mse, nae, loss))
 
         f.write('='*15 + '+'*15 + '='*15 + '\n\n')
 
     print( '='*50 )
-    print( exp_name )
+    print( trainer.exp_name )
     print( '    '+ '-'*20 )
     print( '  [F1 %.4f Pre %.4f Rec %.4f] [mae %.2f mse %.2f], [val loss %.4f]'\
             % (f1m_l, ap_l, ar_l, mae, mse, loss) )
@@ -182,9 +192,12 @@ def print_NWPU_summary(exp_name,log_txt,epoch, scores,train_record):
     print( '='*50 )  
 
 
-def update_model(net,optimizer,scheduler,epoch,i_tb,num_iters,exp_path,exp_name,scores,train_record,log_file=None):
+def update_model(trainer,scores):
 
     F1, Pre, Rec, mae, mse, nae, loss = scores
+    train_record = trainer.train_record
+    log_file = trainer.log_txt
+    epoch = trainer.epoch
 
     snapshot_name = 'ep_%d_F1_%.3f_Pre_%.3f_Rec_%.3f_mae_%.1f_mse_%.1f' % (epoch + 1, F1, Pre, Rec, mae, mse)
 
@@ -195,8 +208,8 @@ def update_model(net,optimizer,scheduler,epoch,i_tb,num_iters,exp_path,exp_name,
         if log_file is not None:
             logger_txt(log_file,epoch,scores)
     if epoch in [0,1,5,10,25]:
-        to_saved_weight = net.state_dict()
-        torch.save(to_saved_weight, os.path.join(exp_path, exp_name, snapshot_name + '.pth'))
+        to_saved_weight = trainer.net.state_dict()
+        torch.save(to_saved_weight, os.path.join(trainer.exp_path, trainer.exp_name, snapshot_name + '.pth'))
 
     if F1 > train_record['best_F1']:
         train_record['best_F1'] = F1
@@ -212,11 +225,11 @@ def update_model(net,optimizer,scheduler,epoch,i_tb,num_iters,exp_path,exp_name,
     if nae < train_record['best_nae']:
         train_record['best_nae'] = nae 
 
-    latest_state = {'train_record':train_record, 'net':net.state_dict(), 'optimizer':optimizer.state_dict(),\
-                    'scheduler':scheduler.state_dict(), 'epoch': epoch, 'i_tb':i_tb, 'num_iters':num_iters,'exp_path':exp_path, \
-                    'exp_name':exp_name}
+    latest_state = {'train_record':train_record, 'net':trainer.net.state_dict(), 'optimizer':trainer.optimizer.state_dict(),\
+                     'epoch': trainer.epoch, 'i_tb':trainer.i_tb, 'num_iters':trainer.num_iters,'exp_path':trainer.exp_path, \
+                    'exp_name':trainer.exp_name}
 
-    torch.save(latest_state,os.path.join(exp_path, exp_name, 'latest_state.pth'))
+    torch.save(latest_state,os.path.join(trainer.exp_path, trainer.exp_name, 'latest_state.pth'))
 
     return train_record
 

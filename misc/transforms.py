@@ -10,9 +10,6 @@ import cv2
 from torchvision.transforms import functional as TrF
 from misc import inflation
 
-
-
-
 class ProcessSub(object):
     def __init__(self,T=0.1,K=51):
         self.T = T
@@ -36,11 +33,6 @@ class ProcessSub(object):
         # inflation
         return flow
 
-class RandomEmptyFlow(object):
-    def __call__(self,flow):
-        if random.random()<0.04:
-            flow = numpy.zeros((flow.shape[0],flow.shape[1],flow.shape[2])).astype(numpy.float32)
-        return flow
 # ===============================img tranforms============================
 
 class Compose(object):
@@ -73,22 +65,6 @@ class RandomHorizontallyFlip(object):
             return img,mask  #flow
         return img, mask, bbx
 
-class RandomVerticallyFlip(object):
-    def __call__(self, img, mask, flow=None, bbx=None):
-        if random.random() < 0.5:
-            if bbx is None:
-                # for i in range(3):
-                    # flow[:,:,i] = np.flipud(flow[:,:,i])
-                return img.transpose(Image.FLIP_TOP_BOTTOM), mask.transpose(Image.FLIP_TOP_BOTTOM)
-            w, h = img.size
-            ymin = w - bbx[:,2]
-            ymax = w - bbx[:,0]
-            bbx[:,0] = ymin
-            bbx[:,2] = ymax
-            return img.transpose(Image.FLIP_TOP_BOTTOM), mask.transpose(Image.FLIP_TOP_BOTTOM), bbx
-        if bbx is None:
-            return img, mask#, flow
-        return img, mask, bbx
 
 class RandomCrop(object):
     def __init__(self, size, padding=0):
@@ -121,127 +97,33 @@ class RandomCrop(object):
         return img.crop((x1, y1, x1 + tw, y1 + th)), mask.crop((x1, y1, x1 + tw, y1 + th)) #.flow
 
 
-class CenterCrop(object):
-    def __init__(self, size):
-        if isinstance(size, numbers.Number):
-            self.size = (int(size), int(size))
-        else:
-            self.size = size
 
-    def __call__(self, img, mask):
-        w, h = img.size
-        th, tw = self.size
-        x1 = int(round((w - tw) / 2.))
-        y1 = int(round((h - th) / 2.))
-        return img.crop((x1, y1, x1 + tw, y1 + th)), mask.crop((x1, y1, x1 + tw, y1 + th))
 
-class ScalebyRate(object):
-    def __init__(self, rateRange):
+class ScaleByRateWithMin(object):
+    def __init__(self, rateRange, min_w, min_h):
         self.rateRange = rateRange
-
-    def __call__(self, img, den):
-
-        img_w, img_h = img.size
-        den_w, den_h = den.size
-
-        # init_random_rate = self.rateRange[0] + random.random()*(self.rateRange[1]-self.rateRange[0])
-
-        init_random_rate = random.uniform(self.rateRange[0],self.rateRange[1])
-
-        dst_img_w = int(img_w*init_random_rate)//32*32
-        dst_img_h = int(img_h*init_random_rate)//32*32
-
-        real_rate_w = dst_img_w/img_w
-        real_rate_h = dst_img_h/img_h
-
-        dst_den_w = int(den_w*init_random_rate)//32*32
-        dst_den_h = int(den_h*init_random_rate)//32*32
-
-        den = np.array(den.resize((dst_den_w, dst_den_h), Image.BILINEAR))/real_rate_w/real_rate_h
-        den = Image.fromarray(den)
-
-        return img.resize((dst_img_w, dst_img_h), Image.BILINEAR), den
-
-class ScaleByRateWithFlow(object):
-    def __init__(self, rateRange):
-        self.rateRange = rateRange
+        self.min_w = min_w
+        self.min_h = min_h
     def __call__(self, img, mask):# dot, flow):
         w, h = img.size
         # print('ori',w,h)
         rate = random.uniform(self.rateRange[0], self.rateRange[1])
         new_w = int(w * rate) // 32 * 32
         new_h = int(h * rate) // 32 * 32
-        if new_h< 512 or new_w<1024:
-            if new_w<1024:
-                new_w = 1024
+        if new_h< self.min_h or new_w<self.min_w:
+            if new_w<self.min_w:
+                new_w = self.min_w
                 rate = new_w/w
                 new_h = int(h*rate) // 32*32
-            if new_h < 512:
-                new_h = 512
+            if new_h < self.min_h:
+                new_h = self.min_h
                 rate = new_h / h
                 new_w =int( w * rate) //32*32
-        # print('resized', new_w, new_h)
-        # print('rate', rate)
-        # img
+
         img = img.resize((new_w, new_h), Image.BILINEAR)
-
-        # scale_map
         mask = mask.resize((new_w, new_h), Image.NEAREST)
-        # size_map = size_map.resize((new_w, new_h), Image.NEAREST)
-        # # print(size_map.size)
-        # np_size_map = np.array(size_map)
-        # # # print(np_size_map,np_size_map.max(), np_size_map.min())
-        # points = np.argwhere(np_size_map != 0)
-        # # print(points)
-        # scale_factor = (new_w*new_h)/(w*h)
-        # np_size_map[points[:, 0], points[:, 1]] += int(np.log(scale_factor))
-        # np_size_map+=1
-        return img, mask #Image.fromarray(np_size_map)
 
-
-
-class FreeScale(object):
-    def __init__(self, size):
-        self.size = size  # (h, w)
-
-    def __call__(self, img, mask):
-        return img.resize((self.size[1], self.size[0]), Image.BILINEAR), mask.resize((self.size[1], self.size[0]), Image.NEAREST)
-
-
-class ScaleDown(object):
-    def __init__(self, size):
-        self.size = size  # (h, w)
-
-    def __call__(self, mask):
-        return  mask.resize((self.size[1]/cfg.TRAIN.DOWNRATE, self.size[0]/cfg.TRAIN.DOWNRATE), Image.NEAREST)
-
-
-        
-
-
-
-class Scale(object):
-    def __init__(self, size):
-        self.size = size
-
-    def __call__(self, img, mask):
-        if img.size != mask.size:
-            print( img.size )
-            print( mask.size )          
-        assert img.size == mask.size
-        w, h = img.size
-        if (w <= h and w == self.size) or (h <= w and h == self.size):
-            return img, mask
-        if w < h:
-            ow = self.size
-            oh = int(self.size * h / w)
-            return img.resize((ow, oh), Image.BILINEAR), mask.resize((ow, oh), Image.NEAREST)
-        else:
-            oh = self.size
-            ow = int(self.size * w / h)
-            return img.resize((ow, oh), Image.BILINEAR), mask.resize((ow, oh), Image.NEAREST)
-
-
+        return img, mask 
 
 # ===============================image tranforms============================
 
@@ -286,10 +168,10 @@ class MaskToTensor(object):
 
 
 
-class tensormul(object):
-    def __init__(self, mu=255.0):
-        self.mu = 255.0
+# class tensormul(object):
+#     def __init__(self, mu=255.0):
+#         self.mu = 255.0
     
-    def __call__(self, _tensor):
-        _tensor.mul_(self.mu)
-        return _tensor
+#     def __call__(self, _tensor):
+#         _tensor.mul_(self.mu)
+#         return _tensor

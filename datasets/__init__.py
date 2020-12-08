@@ -8,7 +8,6 @@ from . import basedataset
 from . import setting
 from torch.utils.data import DataLoader
 import pdb
-from datasets.FIXrandaugment import RandAugmentMC
 from config import  cfg
 def createTrainData(datasetname, Dataset, cfg_data):
 
@@ -23,7 +22,7 @@ def createTrainData(datasetname, Dataset, cfg_data):
         print('dataset is not exist')
 
     main_transform = own_transforms.Compose([
-        own_transforms.ScaleByRateWithFlow([0.8, 1.2]),
+        own_transforms.ScaleByRateWithMin([0.8, 1.2], cfg_data.TRAIN_SIZE[1], cfg_data.TRAIN_SIZE[0]),
         own_transforms.RandomCrop(cfg_data.TRAIN_SIZE),
         own_transforms.RandomHorizontallyFlip(),
     ])
@@ -40,17 +39,16 @@ def createTrainData(datasetname, Dataset, cfg_data):
         main_transform = main_transform,
         img_transform = img_transform,
         mask_transform = mask_transform,
-        list_file = list_file,
-        size_map = cfg.SIZE_MAP
+        list_file = list_file
     )
-    return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=True)
+    return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=0, shuffle=True, drop_last=True)
 
 def createValData(datasetname, Dataset, cfg_data):
 
     if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU']:
         list_file=[]
         list_file.append({'data_path':cfg_data.DATA_PATH,
-                          'imgId_txt': cfg_data.VAL_LST
+                          'imgId_txt': cfg_data.VAL_LST,
                           'box_gt_txt': cfg_data.VAL4EVAL})
     else:
         print('dataset is not exist')
@@ -67,11 +65,10 @@ def createValData(datasetname, Dataset, cfg_data):
     test_set = Dataset(datasetname, 'val',
         img_transform = img_transform,
         mask_transform = mask_transform,
-        list_file = list_file,
-        size_map=cfg.SIZE_MAP
+        list_file = list_file
 
     )
-    train_loader = DataLoader(test_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=False)
+    train_loader = DataLoader(test_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=0, shuffle=True, drop_last=False)
     return train_loader
 
 

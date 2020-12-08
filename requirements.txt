@@ -1,0 +1,12 @@
+torch
+torchvision
+tensorboardX
+tensorboard
+tensorflow
+easydict
+pandas
+numpy
+scipy
+opencv-python
+pyyaml
+yacs

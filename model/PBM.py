@@ -71,7 +71,7 @@ class BinarizedModule(nn.Module):
     f = f * p
     threshold = self.Threshold_Module(f)
 
-    threshold = self.sig(threshold *10.)
+    threshold = self.sig(threshold *10.) # fixed factor
 
     threshold = F.interpolate(threshold, scale_factor=8)
 

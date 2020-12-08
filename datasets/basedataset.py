@@ -31,7 +31,6 @@ class Dataset(data.Dataset):
                 for line in lines:
                     splited = line.strip().split()
                     self.img_path.append(os.path.join(data_path,'images',splited[0]+'.jpg'))
-
                     self.mask_path.append(os.path.join(data_path, 'mask_50_60', splited[0] + '.png'))
                     if self.mode == 'val':
                         self.box_gt.append(box_gt_Info[int(splited[0])])
@@ -66,7 +65,7 @@ class Dataset(data.Dataset):
     def __getitem__(self, index):
 
         img, mask_map = self.read_image_and_gt(index)
-
+        # print(img.size, mask_map.size)
         if self.main_transform is not None:
             img, mask_map  = self.main_transform(img, mask_map)
         if self.img_transform is not None:
@@ -76,9 +75,9 @@ class Dataset(data.Dataset):
 
         if self.mode == 'train' :
 
-                return img, mask_map
+            return img, mask_map
         else:
-                return img, mask_map, self.box_gt[index]
+            return img, mask_map, self.box_gt[index]
     def __len__(self):
         return self.num_samples
 
@@ -86,6 +85,7 @@ class Dataset(data.Dataset):
     def read_image_and_gt(self,index):
 
         img_path = self.img_path[index]
+        # print(img_path)
 
         mask_path = self.mask_path[index]
 

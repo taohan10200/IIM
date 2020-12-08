@@ -53,7 +53,7 @@ class Trainer():
 
 
     def forward(self):
-        self.validate()
+        # self.validate()
         for epoch in range(self.epoch,cfg.MAX_EPOCH):
             self.epoch = epoch
             # training    
@@ -76,6 +76,7 @@ class Trainer():
         self.net.train()
 
         for i, data in enumerate(self.train_loader, 0):
+            self.i_tb+=1
             self.timer['iter time'].tic()
             img, gt_map = data
 
@@ -94,10 +95,10 @@ class Trainer():
                                       cfg.LR_BASE_NET,
                                       cfg.LR_BM_NET,
                                       self.num_iters,
-                                      self.i_tb*cfg.PRINT_FREQ)
+                                      self.i_tb)
+            # print(lr1,lr2)
 
             if (i + 1) % cfg.PRINT_FREQ == 0:
-                self.i_tb += 1
                 self.writer.add_scalar('train_loss', head_map_loss.item(), self.i_tb)
                 self.writer.add_scalar('Binar_loss', binar_map_loss.item(), self.i_tb)
                 if len(cfg.GPU_ID)>1:
@@ -110,11 +111,11 @@ class Trainer():
                 self.timer['iter time'].toc(average=False)
                 print( '[ep %d][it %d][loss %.4f][lr1 %.4f][lr2 %.4f][%.2fs]' % \
                         (self.epoch + 1, i + 1, head_map_loss.item(), self.optimizer.param_groups[0]['lr']*10000, self.optimizer.param_groups[1]['lr']*10000,self.timer['iter time'].diff) )
-                print( '       [cnt: gt: %.1f pred: %.2f t-max: %.3f t-min: %.3f]' %
-                       (gt_map.sum().item(),pre_map.sum().item(), threshold_matrix.max().item(), threshold_matrix.min().item()) )
+                print( '       [t-max: %.3f t-min: %.3f]' %
+                       (threshold_matrix.max().item(), threshold_matrix.min().item()) )
             if  i %100==0:
                 box_pre, boxes = self.get_boxInfo_from_Binar_map(binar_map[0].detach().cpu().numpy())
-                vis_results_more('tmp_vis', 0, self.writer, self.restore_transform, img, pre_map[0].detach().cpu().numpy(), \
+                vis_results('tmp_vis', 0, self.writer, self.restore_transform, img, pre_map[0].detach().cpu().numpy(), \
                                  gt_map[0].detach().cpu().numpy(),binar_map.detach().cpu().numpy(),
                                  threshold_matrix.detach().cpu().numpy(),boxes)
 
@@ -254,7 +255,7 @@ class Trainer():
                     cnt_errors['nae'].update(s_nae)
 
                 if vi == 0:
-                    vis_results_more(self.exp_name, self.epoch, self.writer, self.restore_transform, img,
+                    vis_results(self.exp_name, self.epoch, self.writer, self.restore_transform, img,
                                 pred_map.numpy(), dot_map.numpy(),binar_map,
                                 pred_threshold.numpy(),boxes)
 
@@ -284,11 +285,6 @@ class Trainer():
         self.writer.add_scalar('overall_mse', mse, self.epoch + 1)
         self.writer.add_scalar('overall_nae', nae, self.epoch + 1)
 
+        self.train_record = update_model(self, [f1m_l, ap_l, ar_l,mae, mse, nae, loss])
 
-        import pdb
-        pdb.set_trace()
-
-        self.train_record = update_model(self.net,self.optimizer,self.scheduler,self.epoch,self.i_tb, self.num_iters, self.exp_path,self.exp_name, \
-            [f1m_l, ap_l, ar_l,mae, mse, nae, loss],self.train_record,self.log_txt)
-
-        print_NWPU_summary(self.exp_name, self.log_txt,self.epoch,[f1m_l, ap_l, ar_l,mae, mse, nae, loss],self.train_record)
+        print_NWPU_summary(self,[f1m_l, ap_l, ar_l,mae, mse, nae, loss])
