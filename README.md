@@ -70,7 +70,9 @@ This repo is the official implementation of [paper](): **Learning Independent In
   - ```netName```.  
   -  ```model_path```.  
 - Run ```python test.py```. Then the output file (```*_*_val.txt```) will be generated.
-- 
+- Modify some key parameters in ```vis4val.py```: 
+  - ```pred_file```.  
+- Run  ```python vis4val.py```.
 
 # Performance on the validation set
 
