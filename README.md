@@ -102,7 +102,7 @@ If you find this project is useful for your research, please cite:
 @article{gao2020learning,
   title={Learning Independent Instance Maps for Crowd Localization},
   author={Gao, Junyu and Han, Tao and Yuan, Yuan and Wang, Qi},
-  journal={arXiv preprint arXiv:20XX},
+  journal={arXiv preprint arXiv:2012.04164},
   year={2020}
 }
 ```
