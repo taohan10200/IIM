@@ -226,7 +226,7 @@ def update_model(trainer,scores):
         train_record['best_nae'] = nae 
 
     latest_state = {'train_record':train_record, 'net':trainer.net.state_dict(), 'optimizer':trainer.optimizer.state_dict(),\
-                     'epoch': trainer.epoch, 'i_tb':trainer.i_tb, 'num_iters':trainer.num_iters,'exp_path':trainer.exp_path, \
+                     'scheduler':trainer.scheduler.state_dict(),'epoch': trainer.epoch, 'i_tb':trainer.i_tb, 'num_iters':trainer.num_iters,'exp_path':trainer.exp_path, \
                     'exp_name':trainer.exp_name}
 
     torch.save(latest_state,os.path.join(trainer.exp_path, trainer.exp_name, 'latest_state.pth'))

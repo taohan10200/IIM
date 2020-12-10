@@ -9,17 +9,17 @@ from torchvision import models
 
 
 class Crowd_locator(nn.Module):
-    def __init__(self, cfg, pretrained=True):
+    def __init__(self, net_name, gpu_id, pretrained=True):
         super(Crowd_locator, self).__init__()
 
-        if cfg.NET == 'HR_Net':
+        if net_name == 'HR_Net':
             self.Extractor = get_seg_model()
             self.Binar = BinarizedModule(input_channels=720)
-        if cfg.NET == 'VGG16_FPN':
+        if net_name == 'VGG16_FPN':
             self.Extractor = VGG16_FPN()
             self.Binar = BinarizedModule(input_channels=768)
 
-        if len(cfg.GPU_ID) > 1:
+        if len(gpu_id) > 1:
             self.Extractor = torch.nn.DataParallel(self.Extractor).cuda()
             self.Binar = torch.nn.DataParallel(self.Binar).cuda()
         else:

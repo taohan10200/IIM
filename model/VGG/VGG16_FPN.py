@@ -10,9 +10,7 @@ class VGG16_FPN(nn.Module):
         super(VGG16_FPN, self).__init__()
         if mode == 'Vgg_bn':
             vgg = models.vgg16_bn(pretrained=pretrained)
-        print(vgg)
         features = list(vgg.features.children())
-        print(vgg)
         if  mode == 'Vgg_bn':
             self.layer1 = nn.Sequential(*features[0:23])
             self.layer2 = nn.Sequential(*features[23:33])

@@ -479,6 +479,7 @@ def get_seg_model(**kwargs):
     update_config(hr_config, './model/HR_Net/seg_hrnet_w48.yaml')
     model = HighResolutionNet(hr_config, **kwargs)
     from config import cfg
+
     model.init_weights(cfg.PRE_HR_WEIGHTS)
     return model
 
