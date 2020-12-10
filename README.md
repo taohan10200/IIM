@@ -5,15 +5,9 @@
 This repo is the official implementation of [paper](): **Learning Independent Instance Maps for Crowd Localization**. The code is developed based on [C3F](https://github.com/gjy3035/C-3-Framework). 
 
 # Progress
-- [x]  NWPU
-  - [x] processing data
-  - [x] training parameters
-  - [x] HR models
-  - [ ] VGG+FPN models
-- [ ] UCF-QNRF
-- [ ] SHT A
-- [ ] SHT B
-- [ ] FDST 
+- [x] Testing Code 
+- [ ] Training Code (in 2 weeks)
+
 
 # Getting Started
 
@@ -63,11 +57,20 @@ This repo is the official implementation of [paper](): **Learning Independent In
    ![val_curve](./figures/vis.png)
 
 
-## Testing
+## Testing and Submitting
 
-ToDo.
+- Modify some key parameters in ```test.py```: 
+  - ```netName```.  
+  -  ```model_path```.  
+- Run ```python test.py```. Then the output file (```*_*_test.txt```) will be generated in , which can be directly submitted to [CrowdBenchmark](https://www.crowdbenchmark.com/nwpucrowdloc.html)
 
-
+## Visualization on the val set
+- Modify some key parameters in ```test.py```: 
+  - ```test_list = 'val.txt'```
+  - ```netName```.  
+  -  ```model_path```.  
+- Run ```python test.py```. Then the output file (```*_*_val.txt```) will be generated.
+- 
 
 # Performance on the validation set
 
