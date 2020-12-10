@@ -13,8 +13,8 @@ This repo is the official implementation of [paper](): **Learning Independent In
 
 ## Preparation
 - Prerequisites
-    - Python 3.x
-    - Pytorch 1.x: http://pytorch.org .
+    - Python 3.7
+    - Pytorch 1.6: http://pytorch.org .
     - other libs in ```requirements.txt```, run ```pip install -r requirements.txt```.
 -  Preparation
     - Clone this repo in the directory (```Root/IIM```):
@@ -107,7 +107,7 @@ If you find this project is useful for your research, please cite:
 }
 ```
 
-Our code borrows a lot from the C^3 Framework, you may cite:
+Our code borrows a lot from the C^3 Framework, and you may cite:
 ```
 @article{gao2019c,
   title={C$^3$ Framework: An Open-source PyTorch Code for Crowd Counting},
