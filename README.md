@@ -55,6 +55,8 @@ This repo is the official implementation of [paper](): **Learning Independent In
    ![val_curve](./figures/curve.png)
 - The sub images are the input image, GT, prediction map,localization result, and pixel-level threshold, respectively:
    ![val_curve](./figures/vis.png)
+   
+Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN RTX (48GB Memeory)**. 
 
 
 ## Testing and Submitting
@@ -62,7 +64,7 @@ This repo is the official implementation of [paper](): **Learning Independent In
 - Modify some key parameters in ```test.py```: 
   - ```netName```.  
   -  ```model_path```.  
-- Run ```python test.py```. Then the output file (```*_*_test.txt```) will be generated in , which can be directly submitted to [CrowdBenchmark](https://www.crowdbenchmark.com/nwpucrowdloc.html)
+- Run ```python test.py```. Then the output file (```*_*_test.txt```) will be generated, which can be directly submitted to [CrowdBenchmark](https://www.crowdbenchmark.com/nwpucrowdloc.html)
 
 ## Visualization on the val set
 - Modify some key parameters in ```test.py```: 
@@ -81,9 +83,9 @@ The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.s
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  |  SHT B  |  FDST |
 |------------|-------|-------|--------|--------|--------|
 | Paper:  HRNet [1]   | 80.2/84.1/76.6| - | -  |  -  |
-| Paper:  VGG+FPN [2,3]| - | - | - |  - |
-| This Repo:  HRNet [1]   | - | - | -  |  -  |
-| This Repo:  VGG+FPN [2,3]| -| - | - |  - |
+| Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | - | - |  - |
+| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 | - | -  |  -  |
+| This Repo's Reproduction:  VGG+FPN [2,3]| 77.1/82.5/72.3| - | - |  - |
 1. Deep High-Resolution Representation Learning for Visual Recognition, T-PAMI, 2019.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.
 3. Feature Pyramid Networks for Object Detection, CVPR, 2017. 
