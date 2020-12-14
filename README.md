@@ -2,11 +2,18 @@
 
 ---
 
-This repo is the official implementation of [paper](): **Learning Independent Instance Maps for Crowd Localization**. The code is developed based on [C3F](https://github.com/gjy3035/C-3-Framework). 
+This repo is the official implementation of [paper](https://arxiv.org/abs/2012.04164): **Learning Independent Instance Maps for Crowd Localization**. The code is developed based on [C3F](https://github.com/gjy3035/C-3-Framework). 
 
 # Progress
-- [x] Testing Code 
-- [ ] Training Code (in 2 weeks)
+- [x] Testing Code (2020.12.10)
+- [x] Training Code 
+  - [x] NWPU (2020.12.14)
+  - [ ] JHU (Todo)
+  - [ ] UCF-QNRF (Todo)
+  - [ ] ShanghaiTech A/B (Todo)
+  - [ ] FDST (Todo)
+
+For other datasets, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
 
 
 # Getting Started
