@@ -23,7 +23,7 @@ model_path = '../PretrainedCrowdLocModel/NWPU-HR-ep_241_F1_0.802_Pre_0.841_Rec_0
 # netName = 'VGG16_FPN'
 # model_path = '../PretrainedCrowdLocModel/NWPU-VGG-ep_361_F1_0.770_Pre_0.802_Rec_0.741_mae_62.7_mse_299.2.pth'
 
-out_file_name= './results/' + dataset + '_' + netName + '_' + test_list
+out_file_name= './saved_exp_results/' + dataset + '_' + netName + '_' + test_list
 
 
 

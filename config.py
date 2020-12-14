@@ -14,8 +14,7 @@ __C.DATASET = 'NWPU'  # dataset selection: GCC, SHHA, SHHB, UCF50, QNRF, WE, Mal
 
 __C.NET = 'HR_Net' #  optional ['HR_Net', 'VGG16_FPN']
 
-if __C.NET == 'HR_Net':
-    __C.PRE_HR_WEIGHTS = '../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'
+__C.PRE_HR_WEIGHTS = '../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'
 
 __C.RESUME = False  # contine training
 __C.RESUME_PATH = './exp/12-04_17-28_NWPU_HR_Net/latest_state.pth'

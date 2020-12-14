@@ -11,7 +11,7 @@ dataRoot = '../ProcessedData/' + dataset
 gt_file = dataRoot + '/val_gt_loc.txt'
 img_path = ori_data = dataRoot + '/images'
 
-exp_name = './results/XXX_vis_results'
+exp_name = './saved_exp_results/XXX_vis_results'
 pred_file = 'NWPU_HR_Net_val.txt'
 
 flagError = False

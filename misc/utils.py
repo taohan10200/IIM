@@ -207,7 +207,7 @@ def update_model(trainer,scores):
         train_record['best_model_name'] = snapshot_name
         if log_file is not None:
             logger_txt(log_file,epoch,scores)
-    if epoch in [0,1,5,10,25]:
+
         to_saved_weight = trainer.net.state_dict()
         torch.save(to_saved_weight, os.path.join(trainer.exp_path, trainer.exp_name, snapshot_name + '.pth'))
 
