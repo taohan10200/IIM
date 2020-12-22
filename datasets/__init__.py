@@ -41,7 +41,7 @@ def createTrainData(datasetname, Dataset, cfg_data):
         mask_transform = mask_transform,
         list_file = list_file
     )
-    return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=0, shuffle=True, drop_last=True)
+    return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=True)
 
 def createValData(datasetname, Dataset, cfg_data):
 
@@ -68,7 +68,7 @@ def createValData(datasetname, Dataset, cfg_data):
         list_file = list_file
 
     )
-    train_loader = DataLoader(test_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=0, shuffle=True, drop_last=False)
+    train_loader = DataLoader(test_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=False)
     return train_loader
 
 
