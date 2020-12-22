@@ -26,6 +26,10 @@ __C.OPT = 'Adam'  #'Adam'
 if __C.OPT == 'Adam':
     __C.LR_BASE_NET = 1e-5  # learning rate
     __C.LR_BM_NET = 1e-6  # learning rate
+__C.LR_DECAY = 0.99 # no use 
+__C.NUM_EPOCH_LR_DECAY = 4 # no use 
+__C.LR_DECAY_START = 10 # no use 
+
 
 __C.MAX_EPOCH = 600
 __C.PRINT_FREQ = 20
