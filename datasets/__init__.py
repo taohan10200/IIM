@@ -7,13 +7,14 @@ import torchvision.transforms as standard_transforms
 from . import basedataset
 from . import setting
 from torch.utils.data import DataLoader
+from torch.utils.data import RandomSampler
 import pdb
 from config import  cfg
 def createTrainData(datasetname, Dataset, cfg_data):
 
     folder, list_file = None, None
 
-    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU']:
+    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU', 'FDST']:
         list_file=[]
         list_file.append({'data_path':cfg_data.DATA_PATH,
                           'imgId_txt': cfg_data.TRAIN_LST,
@@ -41,11 +42,17 @@ def createTrainData(datasetname, Dataset, cfg_data):
         mask_transform = mask_transform,
         list_file = list_file
     )
-    return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=True)
+    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU']:
+        return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=True)
+    elif datasetname in ['FDST']:
+        train_sampler = RandomSampler(data_source=train_set, replacement=True,  num_samples=1000)
+        return DataLoader(train_set, batch_size=cfg_data.TRAIN_BATCH_SIZE, sampler=train_sampler, num_workers=6, drop_last=True)
+    else:
+        return 'error'
 
 def createValData(datasetname, Dataset, cfg_data):
 
-    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU']:
+    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU', 'FDST']:
         list_file=[]
         list_file.append({'data_path':cfg_data.DATA_PATH,
                           'imgId_txt': cfg_data.VAL_LST,
@@ -62,14 +69,19 @@ def createValData(datasetname, Dataset, cfg_data):
 
     ])
 
-    test_set = Dataset(datasetname, 'val',
+    val_set = Dataset(datasetname, 'val',
         img_transform = img_transform,
         mask_transform = mask_transform,
         list_file = list_file
-
     )
-    train_loader = DataLoader(test_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=False)
-    return train_loader
+
+    if datasetname in ['SHHA', 'SHHB' , 'QNRF', 'JHU', 'NWPU']:
+        return DataLoader(val_set, batch_size=cfg_data.VAL_BATCH_SIZE, num_workers=6, shuffle=True, drop_last=True)
+    elif datasetname in ['FDST']:
+        val_sampler = RandomSampler(data_source=val_set, replacement=True,  num_samples=200)
+        return DataLoader(val_set, batch_size=cfg_data.VAL_BATCH_SIZE, sampler=val_sampler, num_workers=6, drop_last=True)
+    else:
+        return 'error'
 
 
 def createRestore(mean_std):

@@ -35,6 +35,23 @@ class Dataset(data.Dataset):
                     if self.mode == 'val':
                         self.box_gt.append(box_gt_Info[int(splited[0])])
                     self.info.append(splited[1:3]) # lum, crowd level
+            elif "QNRF" in data_path:
+                for line in lines:
+                    line=line.strip()
+                    self.img_path.append(os.path.join(data_path,  'images',line + '.jpg'))
+                    # self.json_path.append(os.path.join(root, self.mode, 'jsons', splited[0] + '.json'))
+                    self.mask_path.append(os.path.join(data_path,  'mask_30_60', line + '.png'))
+                    if self.mode == 'val':
+                        self.box_gt.append(box_gt_Info[int(line)])
+            else:
+                for line in lines:
+                    line=line.strip()
+                    self.img_path.append(os.path.join(data_path,  'images',line + '.jpg'))
+                    # self.json_path.append(os.path.join(root, self.mode, 'jsons', splited[0] + '.json'))
+                    self.mask_path.append(os.path.join(data_path,  'mask_50_60', line + '.png'))
+                    if self.mode == 'val':
+                        self.box_gt.append(box_gt_Info[int(line)])
+
 
 
 

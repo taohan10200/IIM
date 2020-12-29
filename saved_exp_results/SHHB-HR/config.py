@@ -9,7 +9,7 @@ cfg = __C
 
 #------------------------------TRAIN------------------------
 __C.SEED = 3035  # random seed,  for reproduction
-__C.DATASET = 'QNRF'  # dataset selection: GCC, SHHA, SHHB, UCF50, QNRF, WE, Mall, UCSD
+__C.DATASET = 'SHHB'  # dataset selection: GCC, SHHA, SHHB, UCF50, QNRF, WE, Mall, UCSD
 
 
 __C.NET = 'HR_Net' #  optional ['HR_Net', 'VGG16_FPN']
@@ -19,7 +19,7 @@ __C.PRE_HR_WEIGHTS = '../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'
 __C.RESUME = False  # contine training
 __C.RESUME_PATH = './exp/12-04_17-28_NWPU_HR_Net/latest_state.pth'
 
-__C.GPU_ID = '0,1'  # sigle gpu: [0], [1] ...; multi gpus: [0,1]
+__C.GPU_ID = '2,3'  # sigle gpu: [0], [1] ...; multi gpus: [0,1]
 
 __C.OPT = 'Adam'  #'Adam'
 # learning rate settings
@@ -31,7 +31,7 @@ __C.NUM_EPOCH_LR_DECAY = 4 # no use
 __C.LR_DECAY_START = 10 # no use 
 
 
-__C.MAX_EPOCH = 1000
+__C.MAX_EPOCH = 2000
 __C.PRINT_FREQ = 20
 
 now = time.strftime("%m-%d_%H-%M", time.localtime())

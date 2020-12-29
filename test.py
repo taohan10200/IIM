@@ -10,7 +10,7 @@ from misc.utils import *
 from PIL import Image, ImageOps
 import  cv2 
 
-dataset = 'NWPU'
+dataset = 'QNRF'
 dataRoot = '../ProcessedData/' + dataset
 test_list = 'test.txt'
 
@@ -18,19 +18,22 @@ GPU_ID = '2,3'
 os.environ["CUDA_VISIBLE_DEVICES"] = GPU_ID
 torch.backends.cudnn.benchmark = True
 
-netName = 'HR_Net'
-model_path = '../PretrainedCrowdLocModel/NWPU-HR-ep_241_F1_0.802_Pre_0.841_Rec_0.766_mae_55.6_mse_330.9.pth'
-# netName = 'VGG16_FPN'
-# model_path = '../PretrainedCrowdLocModel/NWPU-VGG-ep_361_F1_0.770_Pre_0.802_Rec_0.741_mae_62.7_mse_299.2.pth'
+netName = 'HR_Net' # options: HR_Net,VGG16_FPN
+model_path = './exp/12-28_16-21_QNRF_HR_Net/ep_197_F1_0.620_Pre_0.734_Rec_0.536_mae_265.1_mse_714.1.pth'
 
 out_file_name= './saved_exp_results/' + dataset + '_' + netName + '_' + test_list
 
 
-
-
 if dataset == 'NWPU':
     mean_std = ([0.446139603853, 0.409515678883, 0.395083993673], [0.288205742836, 0.278144598007, 0.283502370119])
-    
+if dataset == 'SHHA':
+    mean_std = ([0.410824894905, 0.370634973049, 0.359682112932], [0.278580576181, 0.26925137639, 0.27156367898])
+if dataset == 'SHHB':
+    mean_std = ([0.452016860247, 0.447249650955, 0.431981861591], [0.23242045939, 0.224925786257, 0.221840232611])   
+if dataset == 'QNRF':
+    mean_std = ([0.413525998592, 0.378520160913, 0.371616870165], [0.284849464893, 0.277046442032, 0.281509846449])  
+if dataset == 'FDST':
+    mean_std = ([0.452016860247, 0.447249650955, 0.431981861591], [0.23242045939, 0.224925786257, 0.221840232611])  
 
 img_transform = standard_transforms.Compose([
         standard_transforms.ToTensor(),

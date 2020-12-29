@@ -89,9 +89,9 @@ The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.s
 
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  |  SHT B  |  FDST |
 |------------|-------|-------|--------|--------|--------|
-| Paper:  HRNet [1]   | 80.2/84.1/76.6| - | -  |  -  |
-| Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | - | - |  - |
-| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 | - | -  |  -  |
+| Paper:  HRNet [1]   | 80.2/84.1/76.6| - |  73.9/79.8/68.7  | 86.2/90.7/82.1  |  -  |
+| Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | - | - |   -  | - |
+| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  -  | 76.1/79.1/73.3 | 86.0/91.5/81.0 | -  |
 | This Repo's Reproduction:  VGG+FPN [2,3]| 77.1/82.5/72.3| - | - |  - |
 1. Deep High-Resolution Representation Learning for Visual Recognition, T-PAMI, 2019.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.
