@@ -10,7 +10,7 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
   - [x] NWPU (2020.12.14)
   - [ ] JHU (Todo)
   - [ ] UCF-QNRF (Todo)
-  - [ ] ShanghaiTech A/B (Todo)
+  - [x] ShanghaiTech A/B (2020.12.29)
   - [ ] FDST (Todo)
 
 For other datasets, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
