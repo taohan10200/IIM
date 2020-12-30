@@ -9,7 +9,7 @@ cfg = __C
 
 #------------------------------TRAIN------------------------
 __C.SEED = 3035  # random seed,  for reproduction
-__C.DATASET = 'QNRF'  # dataset selection: GCC, SHHA, SHHB, UCF50, QNRF, WE, Mall, UCSD
+__C.DATASET = 'QNRF'  # dataset selection: NWPU, SHHA, SHHB, QNRF, FDST
 
 
 __C.NET = 'HR_Net' #  optional ['HR_Net', 'VGG16_FPN']
@@ -17,9 +17,9 @@ __C.NET = 'HR_Net' #  optional ['HR_Net', 'VGG16_FPN']
 __C.PRE_HR_WEIGHTS = '../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'
 
 __C.RESUME = False  # contine training
-__C.RESUME_PATH = './exp/12-04_17-28_NWPU_HR_Net/latest_state.pth'
+__C.RESUME_PATH = './exp/12-28_16-21_QNRF_HR_Net/latest_state.pth'
 
-__C.GPU_ID = '0,1'  # sigle gpu: [0], [1] ...; multi gpus: [0,1]
+__C.GPU_ID = '2,3'  # sigle gpu: [0], [1] ...; multi gpus: [0,1]
 
 __C.OPT = 'Adam'  #'Adam'
 # learning rate settings

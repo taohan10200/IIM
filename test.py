@@ -14,12 +14,12 @@ dataset = 'QNRF'
 dataRoot = '../ProcessedData/' + dataset
 test_list = 'test.txt'
 
-GPU_ID = '2,3'
+GPU_ID = '0,1'
 os.environ["CUDA_VISIBLE_DEVICES"] = GPU_ID
 torch.backends.cudnn.benchmark = True
 
 netName = 'HR_Net' # options: HR_Net,VGG16_FPN
-model_path = './exp/12-28_16-21_QNRF_HR_Net/ep_197_F1_0.620_Pre_0.734_Rec_0.536_mae_265.1_mse_714.1.pth'
+model_path = './exp/12-28_16-21_QNRF_HR_Net/ep_489_F1_0.634_Pre_0.731_Rec_0.559_mae_235.9_mse_664.8.pth'
 
 out_file_name= './saved_exp_results/' + dataset + '_' + netName + '_' + test_list
 

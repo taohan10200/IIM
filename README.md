@@ -9,9 +9,9 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
 - [x] Training Code 
   - [x] NWPU (2020.12.14)
   - [ ] JHU (Todo)
-  - [ ] UCF-QNRF (Todo)
+  - [ ] UCF-QNRF (2020.12.30)
   - [x] ShanghaiTech A/B (2020.12.29)
-  - [ ] FDST (Todo)
+  - [ ] FDST (2020.12.30)
 
 For other datasets, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
 
@@ -83,16 +83,19 @@ Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN
   - ```pred_file```.  
 - Run  ```python vis4val.py```. 
 
-# Performance on the validation set
+# Performance
 
 The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc) on NWPU val set, UCF-QNRF, SHT A, SHT B, and FDST:
 
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  |  SHT B  |  FDST |
 |------------|-------|-------|--------|--------|--------|
-| Paper:  HRNet [1]   | 80.2/84.1/76.6| - |  73.9/79.8/68.7  | 86.2/90.7/82.1  |  -  |
+| Paper:  HRNet [1]   | 80.2/84.1/76.6| 72.0/79.3/65.9 |  73.9/79.8/68.7  | 86.2/90.7/82.1  |  95.5/95.3/95.8  |
 | Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | - | - |   -  | - |
-| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  -  | 76.1/79.1/73.3 | 86.0/91.5/81.0 | -  |
+| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  72.0/78.7/66.4  | 76.1/79.1/73.3 | 86.0/91.5/81.0 | 95.7/96.9 /94.4 |
 | This Repo's Reproduction:  VGG+FPN [2,3]| 77.1/82.5/72.3| - | - |  - |
+
+
+**References**
 1. Deep High-Resolution Representation Learning for Visual Recognition, T-PAMI, 2019.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.
 3. Feature Pyramid Networks for Object Detection, CVPR, 2017. 
