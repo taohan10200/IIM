@@ -35,7 +35,7 @@ class Dataset(data.Dataset):
                     if self.mode == 'val':
                         self.box_gt.append(box_gt_Info[int(splited[0])])
                     self.info.append(splited[1:3]) # lum, crowd level
-            elif "QNRF" in data_path:
+            elif "QNRF" in data_path or "JHU" in data_path:
                 for line in lines:
                     line=line.strip()
                     self.img_path.append(os.path.join(data_path,  'images',line + '.jpg'))

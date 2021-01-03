@@ -10,16 +10,16 @@ from misc.utils import *
 from PIL import Image, ImageOps
 import  cv2 
 
-dataset = 'QNRF'
+dataset = 'FDST'
 dataRoot = '../ProcessedData/' + dataset
 test_list = 'test.txt'
 
-GPU_ID = '0,1'
+GPU_ID = '2,3'
 os.environ["CUDA_VISIBLE_DEVICES"] = GPU_ID
 torch.backends.cudnn.benchmark = True
 
-netName = 'HR_Net' # options: HR_Net,VGG16_FPN
-model_path = './exp/12-28_16-21_QNRF_HR_Net/ep_489_F1_0.634_Pre_0.731_Rec_0.559_mae_235.9_mse_664.8.pth'
+netName = 'VGG16_FPN' # options: HR_Net,VGG16_FPN
+model_path = './exp/01-01_23-12_FDST_VGG16_FPN/ep_137_F1_0.959_Pre_0.966_Rec_0.952_mae_1.2_mse_1.7.pth'
 
 out_file_name= './saved_exp_results/' + dataset + '_' + netName + '_' + test_list
 

@@ -13,7 +13,7 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
   - [x] ShanghaiTech A/B (2020.12.29)
   - [x] FDST (2020.12.30)
 
-For other datasets, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
+For JHU-CROWD, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
 
 
 # Getting Started
@@ -89,10 +89,10 @@ The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.s
 
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  |  SHT B  |  FDST |
 |------------|-------|-------|--------|--------|--------|
-| Paper:  HRNet [1]   | 80.2/84.1/76.6| 72.0/79.3/65.9 |  73.9/79.8/68.7  | 86.2/90.7/82.1  |  95.5/95.3/95.8  |
-| Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | - | - |   -  | - |
-| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  72.0/78.7/66.4  | 76.1/79.1/73.3 | 86.0/91.5/81.0 | 95.7/96.9 /94.4 |
-| This Repo's Reproduction:  VGG+FPN [2,3]| 77.1/82.5/72.3| - | - |  - |
+| Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | **68.8**/78.2/61.5 | **72.5**/72.6/72.5 |   80.2/84.9/76.0  | 93.1/92.7/93.5 |
+| This Repo's Reproduction:  VGG+FPN [2,3]| **77.1**/82.5/72.3| 67.8/75.7/61.5 | 71.6/75.9/67.8 |  **81.7**/88.5/75.9 | **93.9**/94.7/93.1|
+| Paper:  HRNet [1]   | **80.2**/84.1/76.6| **72.0**/79.3/65.9 |  73.9/79.8/68.7  | **86.2**/90.7/82.1  |  95.5/95.3/95.8  |
+| This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  **72.0**/78.7/66.4  | **76.1**/79.1/73.3 | 86.0/91.5/81.0 | **95.7**/96.9 /94.4 |
 
 
 **References**

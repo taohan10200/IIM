@@ -9,7 +9,7 @@ cfg = __C
 
 #------------------------------TRAIN------------------------
 __C.SEED = 3035  # random seed,  for reproduction
-__C.DATASET = 'JHU'  # dataset selection: NWPU, SHHA, SHHB, QNRF, FDST
+__C.DATASET = 'SHHA'  # dataset selection: NWPU, SHHA, SHHB, QNRF, FDST
 
 
 __C.NET = 'VGG16_FPN' #  optional ['HR_Net', 'VGG16_FPN']
@@ -31,7 +31,7 @@ __C.NUM_EPOCH_LR_DECAY = 4 # no use
 __C.LR_DECAY_START = 10 # no use 
 
 
-__C.MAX_EPOCH = 600
+__C.MAX_EPOCH = 1000
 __C.PRINT_FREQ = 20
 
 now = time.strftime("%m-%d_%H-%M", time.localtime())
