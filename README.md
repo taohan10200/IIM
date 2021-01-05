@@ -87,7 +87,7 @@ Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN
 The results (F1, Pre., Rec. under the `sigma_l`) and [pre-trained models](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc) on NWPU val set, UCF-QNRF, SHT A, SHT B, and FDST:
 
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  | 
-|------------|-------|-------|--------|--------|--------|
+|------------|-------|-------|--------|
 | Paper:  VGG+FPN [2,3]| 77.0/80.2/74.1 | **68.8**/78.2/61.5 | **72.5**/72.6/72.5 | 
 | This Repo's Reproduction:  VGG+FPN [2,3]| **77.1**/82.5/72.3| 67.8/75.7/61.5 | 71.6/75.9/67.8 |  
 | Paper:  HRNet [1]   | **80.2**/84.1/76.6| **72.0**/79.3/65.9 |  73.9/79.8/68.7  | 
