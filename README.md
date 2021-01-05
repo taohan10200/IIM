@@ -3,6 +3,7 @@
 ---
 
 This repo is the official implementation of [paper](https://arxiv.org/abs/2012.04164): **Learning Independent Instance Maps for Crowd Localization**. The code is developed based on [C3F](https://github.com/gjy3035/C-3-Framework). 
+![framework](./figures/iim.png)
 
 # Progress
 - [x] Testing Code (2020.12.10)
