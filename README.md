@@ -8,12 +8,11 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
 - [x] Testing Code (2020.12.10)
 - [x] Training Code 
   - [x] NWPU (2020.12.14)
-  - [ ] JHU (Todo)
+  - [x] JHU (2021.01.05)
   - [x] UCF-QNRF (2020.12.30)
-  - [x] ShanghaiTech A/B (2020.12.29)
+  - [x] ShanghaiTech Part A/B (2020.12.29)
   - [x] FDST (2020.12.30)
-
-For JHU-CROWD, we will upload the processed data and then provide their training details/pre-trained models, of which the key parameters are the same as NWPU experiments.
+- [ ] scale information for UCF-QNRF and ShanghaiTech Part A/B (Todo)
 
 
 # Getting Started
@@ -85,7 +84,7 @@ Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN
 
 # Performance
 
-The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc) on NWPU val set, UCF-QNRF, SHT A, SHT B, and FDST:
+The results (F1, Pre., Rec. under the `sigma_l`) and [pre-trained models](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc) on NWPU val set, UCF-QNRF, SHT A, SHT B, and FDST:
 
 |   Method   |  NWPU val  |  UCF-QNRF  |  SHT A  |  SHT B  |  FDST |
 |------------|-------|-------|--------|--------|--------|
@@ -94,6 +93,12 @@ The results (F1, Pre., Rec.) and [pre-trained models](https://mailnwpueducn-my.s
 | Paper:  HRNet [1]   | **80.2**/84.1/76.6| **72.0**/79.3/65.9 |  73.9/79.8/68.7  | **86.2**/90.7/82.1  |  95.5/95.3/95.8  |
 | This Repo's Reproduction:  HRNet [1]   | 79.8/83.4/76.5 |  **72.0**/78.7/66.4  | **76.1**/79.1/73.3 | 86.0/91.5/81.0 | **95.7**/96.9 /94.4 |
 
+|   Method   |  SHT B  |  FDST |  JHU  |
+|------------|---------|-------|-------|
+| Paper:  VGG+FPN [2,3]|   80.2/84.9/76.0  | 93.1/92.7/93.5 | - |
+| This Repo's Reproduction:  VGG+FPN [2,3] |  **81.7**/88.5/75.9 | **93.9**/94.7/93.1| 61.8/73.2/53.5 |
+| Paper:  HRNet [1]   | **86.2**/90.7/82.1  |  95.5/95.3/95.8  | 62.5/74.0/54.2 |
+| This Repo's Reproduction:  HRNet [1]   | 86.0/91.5/81.0 | **95.7**/96.9 /94.4 | **64.0**/73.3/56.8 |
 
 **References**
 1. Deep High-Resolution Representation Learning for Visual Recognition, T-PAMI, 2019.
