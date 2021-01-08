@@ -13,22 +13,29 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
   - [x] UCF-QNRF (2020.12.30)
   - [x] ShanghaiTech Part A/B (2020.12.29)
   - [x] FDST (2020.12.30)
-- [ ] scale information for UCF-QNRF and ShanghaiTech Part A/B (Todo)
+- [x] scale information for UCF-QNRF and ShanghaiTech Part A/B (2021.01.07)
 
 
 # Getting Started
 
+
 ## Preparation
-- Prerequisites
+-  Prerequisites
     - Python 3.7
     - Pytorch 1.6: http://pytorch.org .
     - other libs in ```requirements.txt```, run ```pip install -r requirements.txt```.
--  Preparation
+-  Code
     - Clone this repo in the directory (```Root/IIM```):
+    - Download the pre-trained HR models from this [link](https://onedrive.live.com/?authkey=%21AKvqI6pBZlifgJk&cid=F7FD0B7F26543CEB&id=F7FD0B7F26543CEB%21116&parId=F7FD0B7F26543CEB%21105&action=locate). More details are availble at [HRNet-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation) and  [HRNet-Image-Classification](https://github.com/HRNet/HRNet-Image-Classification).
+ 
+- Datasets
+ 
     - Download NWPU-Crowd dataset from this [link](https://www.crowdbenchmark.com/nwpucrowd.html). 
     - Unzip ```*zip``` files in turns and place ```images_part*``` into the same folder (```Root/ProcessedData/NWPU/images```). 
-    - Download the processing labels and val gt file from this [link](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc). Place them into ```Root/ProcessedData/NWPU/masks``` and ```Root/ProcessedData/NWPU```, respectively.
-    - Download the pre-trained HR models from this [link](https://onedrive.live.com/?authkey=%21AKvqI6pBZlifgJk&cid=F7FD0B7F26543CEB&id=F7FD0B7F26543CEB%21116&parId=F7FD0B7F26543CEB%21105&action=locate). More details are availble at [HRNet-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation) and  [HRNet-Image-Classification](https://github.com/HRNet/HRNet-Image-Classification).
+    - Download the processing labels and val gt file from this _[link](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc)_. Place them into ```Root/ProcessedData/NWPU/masks``` and ```Root/ProcessedData/NWPU```, respectively.
+ 
+    - If you want to reproduce the results on Shanghai Tech Part A/B , UCF-QNRF, and JHU datasets, you can follow the instructions in [DATA.md](datasets/dataset_prepare/DATA.md) to setup the datasets.
+  
   - Finally, the folder tree is below:
  ```
     -- ProcessedData

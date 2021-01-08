@@ -10,7 +10,6 @@ def euclidean_dist( test_matrix, train_matrix):
     num_test = test_matrix.shape[0]
     num_train = train_matrix.shape[0]
     dists = np.zeros((num_test, num_train))
-    # because(X - X_train)*(X - X_train) = -2X*X_train + X*X + X_train*X_train, so
     d1 = -2 * np.dot(test_matrix, train_matrix.T)    # shape (num_test, num_train)
     d2 = np.sum(np.square(test_matrix), axis=1, keepdims=True)    # shape (num_test, 1)
     d3 = np.sum(np.square(train_matrix), axis=1)     # shape (num_train, )
