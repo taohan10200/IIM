@@ -5,7 +5,7 @@ We provide the prepared datasets that you can directly download from this [link]
 
 ```[Optional]``` If you want to prepare the dataset by yourself or test our codes on your dataset, you will need to set up the dataset with the following instructions.
 ### Preparation
-- Download the pretrained scale prediction model (```pretrained_scale_prediction_model.pth```) from the [link][TODO].
+- Download the pretrained scale prediction model (```pretrained_scale_prediction_model.pth```) from the [link][https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc].
 - Place the model on the root: ``` $IIM/datasets/dataset_prepare```
 ### Shanghai Tech Part A
 - Download the images (train_data, test_data) from [[Link1](https://www.dropbox.com/s/fipgjqxl7uj8hd5/ShanghaiTech.zip?dl=0)] or [[Link2](https://pan.baidu.com/s/1nuAYslz)].
