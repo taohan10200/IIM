@@ -9,6 +9,7 @@ from model.locator import Crowd_locator
 from misc.utils import *
 from PIL import Image, ImageOps
 import  cv2 
+from collections import OrderedDict
 
 dataset = 'JHU'
 dataRoot = '../ProcessedData/' + dataset
@@ -72,7 +73,15 @@ def test(file_list, model_path):
 
     net = Crowd_locator(netName,GPU_ID,pretrained=True)
     net.cuda()
-    net.load_state_dict(torch.load(model_path))
+    state_dict = torch.load(model_path)
+    if len(GPU_ID.split(','))>1:
+        net.load_state_dict(state_dict)
+    else:
+        new_state_dict = OrderedDict()
+        for k, v in state_dict.items():
+            name = k.replace('module.', '')
+            new_state_dict[name] = v
+        net.load_state_dict(new_state_dict)
     net.eval()
 
     gts = []
