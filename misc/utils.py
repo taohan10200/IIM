@@ -1,4 +1,5 @@
 import os
+import sys
 import math
 import numpy as np
 import time
@@ -13,7 +14,47 @@ from torch import nn
 import torchvision.utils as vutils
 import torchvision.transforms as standard_transforms
 
+def read_pred_and_gt(pred_file,gt_file):
+    # read pred
+    pred_data = {}
+    with open(pred_file) as f:
+        
+        id_read = []
+        for line in f.readlines():
+            line = line.strip().split(' ')
 
+            # check1
+            if len(line) <2 or len(line) % 2 !=0 or (len(line)-2)/2 != int(line[1]):
+                flagError = True
+                sys.exit(1)
+
+            line_data = [int(i) for i in line]
+            idx, num = [line_data[0], line_data[1]]
+            id_read.append(idx)
+
+            points = []
+            if num>0:
+                points = np.array(line_data[2:]).reshape(((len(line)-2)//2,2))
+                pred_data[idx] = {'num': num, 'points':points}
+            else:
+                pred_data[idx] = {'num': num, 'points':[]}
+
+    # read gt
+    gt_data = {}
+    with open(gt_file) as f:
+        for line in f.readlines():
+            line = line.strip().split(' ')
+
+            line_data = [int(i) for i in line]
+            idx, num = [line_data[0], line_data[1]]
+            points_r = []
+            if num>0:
+                points_r = np.array(line_data[2:]).reshape(((len(line)-2)//5,5))
+                gt_data[idx] = {'num': num, 'points':points_r[:,0:2], 'sigma': points_r[:,2:4], 'level':points_r[:,4]}
+            else:                
+                gt_data[idx] = {'num': 0, 'points':[], 'sigma':[], 'level':[]}
+
+    return pred_data, gt_data
 
 def adjust_learning_rate(optimizer, base_lr1,base_lr2, max_iters,
         cur_iters, power=0.9):
