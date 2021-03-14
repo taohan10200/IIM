@@ -150,8 +150,54 @@ def generate_masks():
 
             cv.imwrite(dst_mask_path, mask_map, [cv.IMWRITE_PNG_BILEVEL, 1])
 
+def generate_masks_with_points():
+    max_sigma = 7.5
+    max_kernel_size = int(2 * max_sigma)
+    max_kernel_width = 2 * max_kernel_size + 1
+
+    file_list = glob.glob(os.path.join(img_path, '*.jpg'))
+
+    print(len(file_list))
+    for idx, path in enumerate(file_list):  # 108.jpg is the wrong labeled image
+
+        img_id = path.split('/')[-1].split('.')[0]
+        img_ori = Image.open(path)
+        w, h = img_ori.size
+        print(img_id, w, h)
+
+        mask_map = np.zeros((h, w), dtype='float32')
+
+        gt_name = os.path.join(json_path, img_id.split('.')[0] + '.json')
+
+        with open(gt_name) as f:
+            ImgInfo = json.load(f)
 
 
+        points = ImgInfo["points"]
+        gt_count = len(points)
+        print(gt_count)
+        leafsize = 2048
+        if gt_count>0:
+            # build kdtree
+            tree = scipy.spatial.KDTree(points.copy(), leafsize=leafsize)
+            distances, locations = tree.query(points, k=2)
+            for i, pt in enumerate(points):
+                if pt[0]>=w or pt[1]>=h:
+                    continue
+                center_h, center_w = int(pt[1]), int(pt[0])
+                sigma = (distances[i][1]) * 0.125
+                sigma = min(max_sigma, sigma)
+
+                kernel_size = min(max_kernel_size, int(2 * sigma + 0.5))
+                sigma = kernel_size / 2
+                kernel_width = kernel_size * 2 + 1
+
+                mask_h_s, mask_h_e = max(0, (center_h - kernel_size)), min((center_h + kernel_size + 1), h)
+                mask_w_s, mask_w_e = max(0, (center_w - kernel_size)), min((center_w + kernel_size + 1), w)
+                mask_map[mask_h_s:mask_h_e, mask_w_s:mask_w_e] = 1
+        mask_map = mask_map.astype(np.uint8)*255
+        cv.imwrite(os.path.join(mask_path, img_id+'.png'), mask_map, [cv.IMWRITE_PNG_BILEVEL, 1])
+        print(mask_map.sum())
 
 
 if __name__ == '__main__':
@@ -161,3 +207,4 @@ if __name__ == '__main__':
     # print(a, b)
     # print(dist)
     generate_masks()
+    # generate_masks_with_points
