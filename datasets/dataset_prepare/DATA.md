@@ -8,7 +8,7 @@ We provide the prepared datasets that you can directly download from this [link]
 - Download the pretrained scale prediction model (```pretrained_scale_prediction_model.pth```) from the [link](https://mailnwpueducn-my.sharepoint.com/:f:/g/personal/gjy3035_mail_nwpu_edu_cn/EliCeOckaZVBgez6n8ZWvr4BNdwPauFJgbm88MGhHid25w?e=rtogwc).
 - Place the model on the root: ``` $IIM/datasets/dataset_prepare```
 ### Shanghai Tech Part A
-- Download the images (train_data, test_data) from [[Link1](https://www.dropbox.com/s/fipgjqxl7uj8hd5/ShanghaiTech.zip?dl=0)] or [[Link2](https://pan.baidu.com/s/1nuAYslz)].
+- Download the images (train_data, test_data) from [[Link](https://1drv.ms/u/s!AgKz_E1uf260lkYiv3Midn3eU3tW?e=EWHThx)].
 - Place the train_data and test_data to make the data folder like:
 
   ~~~
@@ -60,7 +60,7 @@ We provide the prepared datasets that you can directly download from this [link]
         ~~~ 
 
 ### Shanghai Tech Part B
-- Download the images (train_data, test_data) from [[Link1](https://www.dropbox.com/s/fipgjqxl7uj8hd5/ShanghaiTech.zip?dl=0)] or [[Link2](https://pan.baidu.com/s/1nuAYslz)].
+- Download the images (train_data, test_data) from [[Link](https://1drv.ms/u/s!AgKz_E1uf260lkYiv3Midn3eU3tW?e=EWHThx)].
 - Place the train_data and test_data to make the data folder like the Shanghai Tech Part A dataset.
 
 - Run 
