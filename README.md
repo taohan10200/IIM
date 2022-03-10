@@ -70,7 +70,7 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
 - The sub images are the input image, GT, prediction map,localization result, and pixel-level threshold, respectively:
    ![val_curve](./figures/vis.png)
    
-Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN RTX (48GB Memeory)**. 
+Tips: The training process takes **~50 hours** on NWPU datasets with **two TITAN RTX (48GB Memory)**. 
 
 
 ## Testing and Submitting
