@@ -70,7 +70,7 @@ This repo is the official implementation of [paper](https://arxiv.org/abs/2012.0
 - The sub images are the input image, GT, prediction map,localization result, and pixel-level threshold, respectively:
    ![val_curve](./figures/vis.png)
 
-### computational Cost
+### Computational Cost
 - Devices: Two TITAN RTX 3090-24GB GPUs 
 - Training Time: 
 **~50 hours** for large-scale NWPU dataset. **~6 hours** for some small-scale datasets, such as SHHB, SHHA.
